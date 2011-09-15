@@ -1,0 +1,35 @@
+#!/bin/bash
+#
+# Automagic setup
+#
+# This Works is placed under the terms of the Copyright Less License,
+# see file COPYRIGHT.CLL.  USE AT OWN RISK, ABSOLUTELY NO WARRANTY.
+
+. "`dirname "$0"`/.vm.inc"
+
+knownvms()
+{
+for a in [0-9]*
+do
+	head -1 "$a"
+done
+}
+
+while read -ru3 line
+do
+	vm="${line#\"}"
+	vm="${vm%\"*}"
+	knownvms | fgrep -qx "$vm" && continue
+	let port=$MINPORT
+	while	[ -f "$port" ]
+	do
+		let port++
+	done
+
+	confirm "assign port $port to VM $vm" || continue
+	echo "$vm" >> "$port"
+	./.fix "$vm"
+
+done 3< <(VBoxManage list vms)
+
+

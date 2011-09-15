@@ -1,0 +1,18 @@
+# My settings, overwrite in .vm.conf to suit yours
+
+VRDEADDRESS=127.1.0.1
+VRDEAUTHTYPE=null
+
+MINPORT=7001
+
+MODS="usb mouse clipboard audio vram boot1 boot2 boot3"
+
+M_usb=off
+M_clipboard=disabled
+M_mouse=ps2
+M_audio=none
+M_vram=6
+M_boot1=dvd
+M_boot2=disk
+M_boot3=none
+
