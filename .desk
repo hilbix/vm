@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# Show the desktop of a VM on your DISPLAY
+#
+# Needs a list of VMs on commandline
+#
+# This Works is placed under the terms of the Copyright Less License,
+# see file COPYRIGHT.CLL.  USE AT OWN RISK, ABSOLUTELY NO WARRANTY.
+
+. "`dirname "$0"`/.vm.inc"
+
+for a
+do
+	getvm "$a"
+	rdesktop-vrdp -m $VRDEADDRESS:$port &
+done

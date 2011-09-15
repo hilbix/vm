@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+# Start a VM in headless mode
+#
+# This Works is placed under the terms of the Copyright Less License,
+# see file COPYRIGHT.CLL.  USE AT OWN RISK, ABSOLUTELY NO WARRANTY.
+
+. "`dirname "$0"`/.vm.inc"
+
+for a
+do
+	getvm "$a"
+	VBoxHeadless --startvm "$vm"
+done

@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# Stop a VM by virtually pressing the power button
+#
+# This Works is placed under the terms of the Copyright Less License,
+# see file COPYRIGHT.CLL.  USE AT OWN RISK, ABSOLUTELY NO WARRANTY.
+
+. "`dirname "$0"`/.vm.inc"
+
+for a
+do
+	askvm "$a" Stop
+	VBoxManage controlvm "$vm" acpipowerbutton
+done
+

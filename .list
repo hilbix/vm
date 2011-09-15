@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# List all VMs
+#
+# This Works is placed under the terms of the Copyright Less License,
+# see file COPYRIGHT.CLL.  USE AT OWN RISK, ABSOLUTELY NO WARRANTY.
+
+#. "`dirname "$0"`/.vm.inc"
+
+VBoxManage list vms
+echo ------ RUNNING --------
+VBoxManage list runningvms
+
