@@ -76,8 +76,12 @@ VBoxManage showvminfo "$vm" --machinereadable | awk -vPARM="$1" -F= '$1==PARM { 
 }
 getvmvalue()
 {
-eval "PARM=\"\${FIX_$1:-\$1}\""
-tmpval="`getvmvalue2 "$PARM"`"
+eval "FIX=\"\${FIX_$1}\""
+vmval="`getvmvalue2 "${FIX:-$1}"`"
+[ -z "$FIX" ] && return
+
+# If we have fixed the key, perhaps we need to fix the value, too
+tmpval="$vmval"
 vmval=
 eval "vmval=\"\${VAL_$1_$tmpval}\""
 case "$vmval" in
