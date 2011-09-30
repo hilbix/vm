@@ -106,4 +106,4 @@ fi
 
 FIX_mouse="hidpointing"
 VAL_mouse_ps2mouse="ps2"
-
+FIX_vrdeport=vrdeports
