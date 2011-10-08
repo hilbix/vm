@@ -26,11 +26,13 @@ then
 			;;
 	esac
 else
-
+	name="`VBoxManage showvminfo "$1" --machinereadable | sed -n 's/^name="//p'`"
+	name="${name%\"}"
+	[ -n "$name" ] || name="$1"
 	for port in [1-9]*[0-9]
 	do
 		read -r vm <"$port"
-		[ ".$vm" = ".$1" ] && return
+		[ ".$vm" = ".$name" ] && return
 	done
 fi
 false
