@@ -75,9 +75,6 @@ for VirtualBox?)
 ./.desk VM
 	Start rdesktop-vrdp for the given VM
 
-./.hide VM
-	Kills background `.desk` processes for given VM
-
 ./.run VM
 	Start the VM in FOREGROUND in headless mode.
 	This basically is thought for controlled shell usage, like sending out eMail when the VM crashes.
@@ -88,6 +85,9 @@ for VirtualBox?)
 
 ./.show VM
 	`.start` and `.desk` combined
+
+./.hide VM
+	Kills background `.desk` processes for given VM (keeps the VM running)
 
 ./.fix VM
 	Fix certain settings of a VM (according to .vm.conf)
