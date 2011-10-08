@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# Hide the desktop of a VM.
+#
+# See also: .desk
+#
+# This Works is placed under the terms of the Copyright Less License,
+# see file COPYRIGHT.CLL.  USE AT OWN RISK, ABSOLUTELY NO WARRANTY.
+
+. "`dirname "$0"`/.vm.inc"
+
+for a
+do
+	getvm "$a"
+	echo "Killing displays of VM '$vm' ($port)"
+	kill -1 "`lsof -nPti "TCP@$VRDEADDRESS:$port"`"
+done
