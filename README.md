@@ -60,9 +60,13 @@ Scripts without args:
 ./.port
 	Re-assign port numbers from the accessory files
 
+./.autostart
+	Call `.run` with the VM name taken from the filename.
+	Link this to your convenience script like `ln -s ../vm/.autostart ~/autostart/MY-VM-NAME`
+	With http://www.scylla-charybdis.com/tool.php/ptybuffer you then can call `~/bin/autostart.sh` to start the VMs on boot.
 
-Scripts with VM args:
----------------------
+Scripts with VM arg:
+--------------------
 
 The argument can be the VM name or the port number.  Usually the port is quicker
 thanks to Bash file completion. (Anybody writes a customized Bash completion
@@ -72,14 +76,22 @@ for VirtualBox?)
 	Start rdesktop-vrdp for the given VM
 
 ./.run VM
-	Start the VM in headless mode
+	Start the VM in FOREGROUND in headless mode.
+	This basically is thought for controlled shell usage, like sending out eMail when the VM crashes.
+
+./.start VM
+	Start the VM in BACKGROUND in headless mode.
+	Afterwards you can call `.desk`
+
+./.show VM
+	`.start` and `.desk` combined
 
 ./.fix VM
 	Fix certain settings of a VM (according to .vm.conf)
 
 
-Scripts with VM args and confirmation:
---------------------------------------
+Scripts with VM arg and confirmation:
+-------------------------------------
 
 ./.cad VM
 	Send a Ctrl-Alt-Del to the VM

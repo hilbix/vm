@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# Show the desktop of a VM on your DISPLAY
+# Start a VM in headless mode in BACKGROUND
 #
-# See also: .start .show
+# See also: .run .show
 #
 # This Works is placed under the terms of the Copyright Less License,
 # see file COPYRIGHT.CLL.  USE AT OWN RISK, ABSOLUTELY NO WARRANTY.
@@ -12,5 +12,6 @@
 for a
 do
 	getvm "$a"
-	rdesktop-vrdp -m $VRDEADDRESS:$port &
+	echo "Running $vm ($port) in BACKGROUND"
+	VBoxManage startvm "$vm" --type headless
 done

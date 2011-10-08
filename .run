@@ -2,6 +2,8 @@
 #
 # Start a VM in headless mode in FOREGROUND
 #
+# See also: .start .desk
+#
 # This Works is placed under the terms of the Copyright Less License,
 # see file COPYRIGHT.CLL.  USE AT OWN RISK, ABSOLUTELY NO WARRANTY.
 
@@ -10,6 +12,6 @@
 for a
 do
 	getvm "$a"
-	echo "Running $vm"
+	echo "Running $vm ($port) in FOREGROUND"
 	VBoxHeadless --startvm "$vm"
 done
