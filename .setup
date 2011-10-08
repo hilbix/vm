@@ -26,7 +26,7 @@ do
 		let port++
 	done
 
-	confirm "assign port $port to VM $vm" || continue
+	confirm "assign port $port to VM '$vm'" || continue
 	echo "$vm" >> "$port"
 	./.fix "$vm"
 

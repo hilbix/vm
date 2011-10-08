@@ -12,6 +12,6 @@
 for a
 do
 	getvm "$a"
-	echo "Running $vm ($port) in BACKGROUND"
+	echo "Running VM '$vm' ($port) in BACKGROUND"
 	VBoxManage startvm "$vm" --type headless
 done

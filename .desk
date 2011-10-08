@@ -12,5 +12,6 @@
 for a
 do
 	getvm "$a"
+	echo "Desktop for VM $vm ($port) on display $DISPLAY (in background)"
 	rdesktop-vrdp -m $VRDEADDRESS:$port &
 done

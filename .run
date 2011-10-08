@@ -12,6 +12,6 @@
 for a
 do
 	getvm "$a"
-	echo "Running $vm ($port) in FOREGROUND"
+	echo "Running VM '$vm' ($port) in FOREGROUND"
 	VBoxHeadless --startvm "$vm"
 done

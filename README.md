@@ -62,7 +62,7 @@ Scripts without args:
 
 ./.autostart
 	Call `.run` with the VM name taken from the filename.
-	Link this to your convenience script like `ln -s ../vm/.autostart ~/autostart/MY-VM-NAME`
+	Link this to your convenience script like `ln -s ../vm/.autostart ~/autostart/"My VM Name"`
 	With http://www.scylla-charybdis.com/tool.php/ptybuffer you then can call `~/bin/autostart.sh` to start the VMs on boot.
 
 Scripts with VM arg:

@@ -1,12 +1,19 @@
 # My settings, overwrite in .vm.conf to suit yours
 
+# Default path where to store VMs
+VMDATA="/VM/$USER"
+
+# Default binding for VirtualBox RDP service
 VRDEADDRESS=127.1.0.1
 VRDEAUTHTYPE=null
 
+# Start port for RDP services, counted up
 MINPORT=7001
 
+# Settings to .fix
 MODS="usb mouse clipboard audio vram boot1 boot2 boot3"
 
+# Setting values to fix (setting prefixed with M_)
 M_usb=off
 M_clipboard=disabled
 M_mouse=ps2
