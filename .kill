@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# Kill a running VM by switching of virtual power
+#
+# This Works is placed under the terms of the Copyright Less License,
+# see file COPYRIGHT.CLL.  USE AT OWN RISK, ABSOLUTELY NO WARRANTY.
+
+. "`dirname "$0"`/.vm.inc"
+
+for a
+do
+	askvm "$a" Kill
+	VBoxManage controlvm "$vm" poweroff
+done
+
