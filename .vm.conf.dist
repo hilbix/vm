@@ -11,7 +11,7 @@ VRDEAUTHTYPE=null
 MINPORT=7001
 
 # Settings to .fix
-MODS="usb mouse clipboard audio vram boot1 boot2 boot3"
+MODS="usb mouse clipboard audio vram boot1 boot2 boot3 timesync"
 
 # Setting values to fix (setting prefixed with M_)
 M_usb=off
@@ -22,4 +22,11 @@ M_vram=6
 M_boot1=dvd
 M_boot2=disk
 M_boot3=none
+
+# Set some guestproperties
+PROPS="timesync"
+
+P_timesync=/VirtualBox/GuestAdd/VBoxService/
+G_timesync=--timesync-set-threshold
+V_timesync=1000
 
