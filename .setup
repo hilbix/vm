@@ -30,6 +30,6 @@ do
 	echo "$vm" >> "$port"
 	./.fix "$vm"
 
-done 3< <(VBoxManage list vms)
+done 3< <(vbm list vms)
 
 ./.port

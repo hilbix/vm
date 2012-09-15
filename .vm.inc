@@ -16,6 +16,11 @@ echo "BUG $?: $*" >&2
 exit 1
 }
 
+vbm()
+{
+VBoxManage -q "$@"
+}
+
 getvm2()
 {
 if	[ -f "$1" ]
@@ -26,7 +31,7 @@ then
 			;;
 	esac
 else
-	name="`VBoxManage showvminfo "$1" --machinereadable | sed -n 's/^name="//p'`"
+	name="`vbm showvminfo "$1" --machinereadable | sed -n 's/^name="//p'`"
 	name="${name%\"}"
 	[ -n "$name" ] || name="$1"
 	for port in [1-9]*[0-9]
@@ -46,7 +51,7 @@ getvm2 "$1" || OOPS "wrong VM $1"
 getvm3()
 {
 getvm2 "$1" || { vm="$1"; port=; }
-VBoxManage showvminfo "$vm" >/dev/null 2>&1 || OOPS "Unknown VM $vm"
+vbm showvminfo "$vm" >/dev/null 2>&1 || OOPS "Unknown VM $vm"
 }
 
 confirm()
@@ -69,12 +74,12 @@ confirm "$* VM $vm" || OOPS no
 
 ctrl()
 {
-VBoxManage controlvm "$vm" "$@"
+vbm controlvm "$vm" "$@"
 }
 
 getvmvalue2()
 {
-VBoxManage showvminfo "$vm" --machinereadable | awk -vPARM="$1" -F= '$1==PARM { sub(/^[^=]*=/,""); sub(/^"/,""); sub(/"$/,""); print; exit(0) }'
+vbm showvminfo "$vm" --machinereadable | awk -vPARM="$1" -F= '$1==PARM { sub(/^[^=]*=/,""); sub(/^"/,""); sub(/"$/,""); print; exit(0) }'
 }
 getvmvalue()
 {
@@ -100,7 +105,7 @@ then
 	: echo "'$vm' var $1 was '$2'"
 else
 	echo "'$vm' set $1 to '$2' (was '$vmval')"
-	VBoxManage modifyvm "$vm" --"$@"
+	vbm modifyvm "$vm" --"$@"
 fi
 }
 

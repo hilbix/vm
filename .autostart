@@ -6,7 +6,7 @@
 # This Works is placed under the terms of the Copyright Less License,
 # see file COPYRIGHT.CLL.  USE AT OWN RISK, ABSOLUTELY NO WARRANTY.
 
-name="`basename "$0" .sh`"
-targ="`readlink "$0"`"
+name="`basename "$0" .sh`" &&
+targ="`readlink -f "$0"`" &&
 
-exec "`dirname "$0"`/`dirname "$targ"`/.run" "$name"
+exec "`dirname "$targ"`/.run" "$name"

@@ -23,6 +23,7 @@ M_boot1=dvd
 M_boot2=disk
 M_boot3=none
 
+# FOLLOWING IS NOT YET USED
 # Set some guestproperties
 PROPS="timesync"
 

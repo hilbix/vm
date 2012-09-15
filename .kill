@@ -10,6 +10,6 @@
 for a
 do
 	askvm "$a" Kill
-	VBoxManage controlvm "$vm" poweroff
+	vbm controlvm "$vm" poweroff
 done
 

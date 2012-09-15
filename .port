@@ -8,7 +8,7 @@
 
 . "`dirname "$0"`/.vm.inc"
 
-VBoxManage list vms
+vbm list vms
 echo
 
 for a in [0-9]*
