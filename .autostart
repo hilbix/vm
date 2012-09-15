@@ -3,6 +3,16 @@
 # Autostart a VM
 # This calls .run with the VM's name taken from the softlinked filename.
 #
+# Example how this can be used:
+# - Download http://www.scylla-charybdis.com/tool.php/ptybuffer
+# - tar xfz ptybuffer*.tar.gz
+# - cd ptybuffer-*[0-9]; make; sudo make install
+# - cp script/autostart.sh "$HOME/bin/"
+# - Add crontab entry:
+#	* * * * * bin/autostart.sh >/dev/null
+# - mkdir "$HOME/autostart"
+# - ln -s PATH-TO-THIS-FILE/.autostart "$HOME/autostart/NAME-OF-VM"
+#
 # This Works is placed under the terms of the Copyright Less License,
 # see file COPYRIGHT.CLL.  USE AT OWN RISK, ABSOLUTELY NO WARRANTY.
 
