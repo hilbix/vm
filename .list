@@ -7,6 +7,44 @@
 
 . "`dirname "$0"`/.vm.inc"
 
+list()
+{
+for a
+do
+	vbm list -l "$a"
+done
+exit
+}
+
+ostypes()
+{
+vbm list ostypes |
+awk 'function flush()
+{
+if (d[1]==d[0] " (64 bit)")
+  d[1] = "";
+else if (d[1])
+  d[1] = " / " d[1];
+if (id id2 d[0] d[1])
+  printf("%-15s %-15s %s%s\n", id, id2, d[0], d[1]);
+id="";
+id2="";
+delete d;
+}
+/^ID:.*_64$/	{ i=$2; sub(/_64$/,"",i); if (i==id && v==0) { id2=$2; v=1; next; } }
+/^ID:/	 	{ flush(); id=$2; v=0 }
+/^Description:/	{ sub(/^[^[:space:]]*[[:space:]]/,"", $0); d[v]=$0; }' |
+less -FE
+exit
+}
+
+case "$1" in
+h*)	list hdds;;
+m*)	list hdds dvds floppies;;
+[in]*)	list bridgedifs hostonlyifs;;
+o)	ostypes;;
+esac
+
 vbm list vms
 echo ------ RUNNING --------
 vbm list runningvms

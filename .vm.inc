@@ -5,6 +5,8 @@
 
 cd "`dirname "$0"`" || exit
 
+export LC_ALL=C
+
 . .vm.conf.dist
 [ -f .vm.conf ] && . .vm.conf
 
@@ -13,6 +15,14 @@ cd "`dirname "$0"`" || exit
 OOPS()
 {
 echo "BUG $?: $*" >&2
+exit 1
+}
+
+# usage MINARGS MAXARGS USAGEstring "$@"
+usage()
+{
+[ -z "$1" -o "$#" -ge "`expr "${1:-0}" + 3`" ] && [ -z "$2" -o "$#" -le "`expr "${2:-0}" + 3`" ] && return
+echo "Usage: `basename "$BASH_SOURCE"` $3" >&2
 exit 1
 }
 
@@ -108,6 +118,33 @@ else
 	vbm modifyvm "$vm" --"$@"
 fi
 }
+
+# format variant "$@"
+mkdisk()
+{
+usage 3 '' "SIZE_MB:VMNAME[/DISKNAME]" "$@"
+
+format="$1"
+variant="$2"
+shift 2
+
+for a
+do
+	size="${a%%:*}"
+	[ 0 -lt "$size" ] || OOPS "format is NUMBER:NAME, you gave $a"
+	name="${a#*:}"
+	case "$name" in
+	*.vdi)		OOPS "please do not add extension .vdi";;
+	/*|./*|../*)	;;
+	*/*)	name="$VMDATA/$name";;
+	*)	name="$VMDATA/$name/$name";;
+	esac
+	dir="${name%/*}"
+	[ -d "$dir" ] || mkdir "$dir" || OOPS "cannot create $dir"
+	vbm createhd --remember --filename "$name.vdi" --size "$size" --format "$format" --variant "$variant"
+done
+}
+
 
 # Fixes for getvmvalue
 
