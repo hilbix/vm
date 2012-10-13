@@ -34,6 +34,7 @@ delete d;
 /^ID:.*_64$/	{ i=$2; sub(/_64$/,"",i); if (i==id && v==0) { id2=$2; v=1; next; } }
 /^ID:/	 	{ flush(); id=$2; v=0 }
 /^Description:/	{ sub(/^[^[:space:]]*[[:space:]]/,"", $0); d[v]=$0; }' |
+sort -i |
 less -FE
 exit
 }
@@ -42,7 +43,9 @@ case "$1" in
 h*)	list hdds;;
 m*)	list hdds dvds floppies;;
 [in]*)	list bridgedifs hostonlyifs;;
-o)	ostypes;;
+o*)	ostypes;;
+'')	;;
+*)	echo "arg '$1' ignored.  Give nothing or h)dds m)edia i)nterfaces or o)stypes" >&2;;
 esac
 
 vbm list vms

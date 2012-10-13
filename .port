@@ -15,9 +15,9 @@ for a in [0-9]*
 do
 	getvm2 "$a" || continue
 	echo "$port $vm"
-	mod vrde on
-	mod vrdeport "$port"
-	mod vrdereusecon on
-	mod vrdeaddress $VRDEADDRESS
-	mod vrdeauthtype $VRDEAUTHTYPE
+#	mod vrde on
+#	mod vrdeport "$port"
+#	mod vrdereusecon on
+#	mod vrdeaddress $VRDEADDRESS
+#	mod vrdeauthtype $VRDEAUTHTYPE
 done

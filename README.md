@@ -125,3 +125,9 @@ These commands show a short the Usage if called without arguments.
 `./.mk-hd-dyn SIZE:[PATH/]NAME...`
 	Like `./.mk-hd-fixed`, but instead creates an empty dynamically allocated VDI file.
 	Note that all disks are registered with VirtualBox, so you can list them using `./.list h`
+
+
+Notes
+======
+
+As I start to use the Debian originated package virtualbox-ose, RDP-Suport will be dropped.  Instead VNC support is added.  VNC support is very different from RDP support, though.

@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# Create a VM
+#
+# See also: .mk-vm name ostype
+#
+# This Works is placed under the terms of the Copyright Less License,
+# see file COPYRIGHT.CLL.  USE AT OWN RISK, ABSOLUTELY NO WARRANTY.
+
+. "`dirname "$0"`/.vm.inc"
+
+usage 2 2 "VMNAME ostype" "$@"
+getfullname "$1"
+#vbm createvm --name "${fullname##*/}" --ostype "$2" --register --basefolder "fulldir"
+vbm createvm --name "${fullname##*/}" --ostype "$2" --register --settingsfile "$fullname.xml"
+

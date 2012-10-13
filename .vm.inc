@@ -12,13 +12,14 @@ export LC_ALL=C
 
 [ -z DISPLAY ] && export DISPLAY=":0"
 
+: OOPS
 OOPS()
 {
 echo "BUG $?: $*" >&2
 exit 1
 }
 
-# usage MINARGS MAXARGS USAGEstring "$@"
+: usage USAGEstring "$#" MINARGS [MAXARGS]
 usage()
 {
 [ -z "$1" -o "$#" -ge "`expr "${1:-0}" + 3`" ] && [ -z "$2" -o "$#" -le "`expr "${2:-0}" + 3`" ] && return
@@ -26,11 +27,13 @@ echo "Usage: `basename "$BASH_SOURCE"` $3" >&2
 exit 1
 }
 
+: vbm
 vbm()
 {
 VBoxManage -q "$@"
 }
 
+: getvm2
 getvm2()
 {
 if	[ -f "$1" ]
@@ -53,17 +56,20 @@ fi
 false
 }
 
+: getvm
 getvm()
 {
 getvm2 "$1" || OOPS "wrong VM $1"
 }
 
+: getvm3
 getvm3()
 {
 getvm2 "$1" || { vm="$1"; port=; }
 vbm showvminfo "$vm" >/dev/null 2>&1 || OOPS "Unknown VM $vm"
 }
 
+: confirm
 confirm()
 {
 # Send NL for more easy parsing in case of remote control
@@ -75,6 +81,7 @@ esac
 return 1
 }
 
+: askvm
 askvm()
 {
 getvm "$1"
@@ -82,15 +89,18 @@ shift
 confirm "$* VM $vm" || OOPS no
 }
 
+: ctrl
 ctrl()
 {
 vbm controlvm "$vm" "$@"
 }
 
+: getvmvalue2
 getvmvalue2()
 {
 vbm showvminfo "$vm" --machinereadable | awk -vPARM="$1" -F= '$1==PARM { sub(/^[^=]*=/,""); sub(/^"/,""); sub(/"$/,""); print; exit(0) }'
 }
+: getvmvalue
 getvmvalue()
 {
 eval "FIX=\"\${FIX_$1}\""
@@ -107,6 +117,7 @@ case "$vmval" in
 esac
 }
 
+: mod
 mod()
 {
 getvmvalue "$1"
@@ -119,10 +130,24 @@ else
 fi
 }
 
-# format variant "$@"
+: getfullname
+getfullname()
+{
+echo getfullname "$@"
+fullname="$1"
+case "$1" in
+*.vdi|*.xml)		OOPS "please do not add extension ${1##*.}";;
+'/'*|'./'*|'../'*)	;;
+*'/'*)			fullname="$VMDATA/$1";;
+*)			fullname="$VMDATA/$1/$1";;
+esac
+fulldir="${fullname%/*}"
+}
+
+: mkdisk format variant "$@"
 mkdisk()
 {
-usage 3 '' "SIZE_MB:VMNAME[/DISKNAME]" "$@"
+usage "SIZE_MB:VMNAME[/DISKNAME]" "$#" 3
 
 format="$1"
 variant="$2"
@@ -132,16 +157,9 @@ for a
 do
 	size="${a%%:*}"
 	[ 0 -lt "$size" ] || OOPS "format is NUMBER:NAME, you gave $a"
-	name="${a#*:}"
-	case "$name" in
-	*.vdi)		OOPS "please do not add extension .vdi";;
-	/*|./*|../*)	;;
-	*/*)	name="$VMDATA/$name";;
-	*)	name="$VMDATA/$name/$name";;
-	esac
-	dir="${name%/*}"
-	[ -d "$dir" ] || mkdir "$dir" || OOPS "cannot create $dir"
-	vbm createhd --remember --filename "$name.vdi" --size "$size" --format "$format" --variant "$variant"
+	getfullname "${a#*:}"
+	[ -d "$fulldir" ] || mkdir "$fulldir" || OOPS "cannot create $fulldir"
+	vbm createhd --remember --filename "$fullname.vdi" --size "$size" --format "$format" --variant "$variant"
 done
 }
 
@@ -151,3 +169,4 @@ done
 FIX_mouse="hidpointing"
 VAL_mouse_ps2mouse="ps2"
 FIX_vrdeport=vrdeports
+
