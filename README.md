@@ -1,6 +1,10 @@
 VirtualBox bash helper scripts
 ==============================
 
+This is for VirtualBox OSE 3.x.
+Note that VirtualBox 4.x has a largely incompatible commandline interface.
+
+
 First use:
 ----------
 
@@ -30,7 +34,7 @@ There are 4 classes of files:
 
 * Auxiliary (Aux) files which are created and not managed with GIT.
 
-* Helpers which you won't call yourself, starting with `.vm.`.  The configuration `.vm.conf` is a helper, too, which you can edit using vi or text editors.
+* Helpers which you will not call yourself, starting with `.vm.`.  The configuration `.vm.conf` is a helper, too, which you can edit using vi or text editors.
 
 * Scripts, which will run without arguments.
 
@@ -125,6 +129,10 @@ These commands show a short the Usage if called without arguments.
 `./.mk-hd-dyn SIZE:[PATH/]NAME...`
 	Like `./.mk-hd-fixed`, but instead creates an empty dynamically allocated VDI file.
 	Note that all disks are registered with VirtualBox, so you can list them using `./.list h`
+
+`./.mk-vm VMNAME ostype`
+	Create a new VM with the given name and the given OS-type.
+	See `./.list o` for possible OS-types.
 
 
 Notes
