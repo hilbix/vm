@@ -10,6 +10,9 @@ VRDEAUTHTYPE=null
 # Start port for RDP services, counted up
 MINPORT=7001
 
+# PARAMS for ./.set
+#PARAMS=memory
+
 # Settings to .fix
 MODS="usb mouse clipboard audio vram boot1 boot2 boot3 timesync"
 

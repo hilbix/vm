@@ -13,5 +13,7 @@ for a
 do
 	getvm "$a"
 	echo "Running VM '$vm' ($port) in FOREGROUND"
-	VBoxHeadless --startvm "$vm"
+	VBH=/wrap/VBoxHeadless
+	[ -x "$VBH" ] || VBH=VBoxHeadless
+	$VBH --vnc --vncport "$port" --startvm "$vm"
 done

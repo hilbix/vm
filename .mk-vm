@@ -9,7 +9,7 @@
 
 . "`dirname "$0"`/.vm.inc"
 
-usage 2 2 "VMNAME ostype" "$@"
+usage "VMNAME ostype" "$#" 2 2
 getfullname "$1"
 #vbm createvm --name "${fullname##*/}" --ostype "$2" --register --basefolder "fulldir"
 vbm createvm --name "${fullname##*/}" --ostype "$2" --register --settingsfile "$fullname.xml"

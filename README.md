@@ -139,3 +139,32 @@ Notes
 ======
 
 As I start to use the Debian originated package virtualbox-ose, RDP-Suport will be dropped.  Instead VNC support is added.  VNC support is very different from RDP support, though.
+
+
+Security
+--------
+
+Securing `VBoxHeadless` is not very easy, as it, per default, listens on every interface it can see if used with the `--vnc` option.  Apparently it is lacking an option to bind to a single IP.  The situation can be improved with a workaround, such that VBoxHeadless listens on localhost only.  However this workaround is a bit difficult to apply in case you want to run VBoxHeadless as an ordinary user and not root.
+
+Following fix is automatically used by `.run` if it is installed:
+
+```bash
+cd
+git clone https://github.com/hilbix/misc
+cd force_local
+make
+sudo make install
+cd ../wrap
+make
+sudo make install
+sudo make example
+```
+
+This does following:
+
+- Installs `force_local.so` into `/usr/local/lib/`
+- Installs `wrap` into `/wrap/`
+- Installs the example (which wraps VBoxHeadless) into `/wrap/`
+- `.run` detects `/wrap/VBoxHeadless` and automatically uses it
+- You can alter the wrapped runtime environment by editing `sudo vim /wrap/VBoxHeadless.wrap` easily
+

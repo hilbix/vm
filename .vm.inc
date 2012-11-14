@@ -22,8 +22,8 @@ exit 1
 : usage USAGEstring "$#" MINARGS [MAXARGS]
 usage()
 {
-[ -z "$1" -o "$#" -ge "`expr "${1:-0}" + 3`" ] && [ -z "$2" -o "$#" -le "`expr "${2:-0}" + 3`" ] && return
-echo "Usage: `basename "$BASH_SOURCE"` $3" >&2
+[ "$2" -ge "${3:-0}" ] && [ "$2" -le "${4:-$2}" ] && return
+echo "Usage: `basename "$BASH_SOURCE"` $1" >&2
 exit 1
 }
 
@@ -117,7 +117,7 @@ case "$vmval" in
 esac
 }
 
-: mod
+: mod param value
 mod()
 {
 getvmvalue "$1"
@@ -128,6 +128,16 @@ else
 	echo "'$vm' set $1 to '$2' (was '$vmval')"
 	vbm modifyvm "$vm" --"$@"
 fi
+}
+
+: alter param
+alter()
+{
+getvmvalue "$1"
+eval "txt=\"\$TXT_$1\""
+ans=""
+read -ep "`printf "%-10s %30s: " "$1" "${txt:-$1}"`" -i "$vmval" ans || OOPS eof
+mod "$1" "$ans"
 }
 
 : getfullname
@@ -170,3 +180,6 @@ FIX_mouse="hidpointing"
 VAL_mouse_ps2mouse="ps2"
 FIX_vrdeport=vrdeports
 
+PARAMS="memory cpus"
+TXT_memory="Main memory in [MB]"
+TXT_cpus="Number of CPUs"
